@@ -35,6 +35,8 @@ public final class SwiftAppLinksPlugin: NSObject, FlutterPlugin, FlutterStreamHa
     continue userActivity: NSUserActivity,
     restorationHandler: @escaping ([Any]) -> Void) -> Bool {
 
+    NSLog("Got universal link \(userActivity.activityType)")
+
     switch userActivity.activityType {
       case NSUserActivityTypeBrowsingWeb:
         guard let url = userActivity.webpageURL else {
@@ -42,7 +44,9 @@ public final class SwiftAppLinksPlugin: NSObject, FlutterPlugin, FlutterStreamHa
         }
         handleLink(url: url)
         return false
-      default: return false
+      default: 
+        NSLog("Returning false due to wrong activity type")
+        return false
     }
   }
 
